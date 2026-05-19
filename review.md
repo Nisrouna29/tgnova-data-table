@@ -28,7 +28,7 @@ return el;
 deleteUser(id) {
 this.users = this.users.filter(u => u.id !== id);
 this.users.forEach(u => {
-u.index = this.users.indexOf(u); // I think we are assigning an index number to each user, which is unnecessarily complex. Instead, we could use map to achieve the same result more simply.”
+u.index = this.users.indexOf(u); // I think we are assigning an index number to each user, which is unnecessarily complex. Instead, we could use map to achieve the same result more simply.
 });
 }
 }
