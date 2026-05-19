@@ -151,7 +151,12 @@ export class DataTable<T extends Record<string, unknown>> {
     }
     const badgeCol = col as BadgeColumn;
     const stringValue = String(value ?? '');
-    const variant = badgeCol.badgeMap?.[stringValue] ?? 'danger';
+    const variant = badgeCol.badgeMap?.[stringValue];
+
+    if (!variant) {
+      return '';
+    }
+
     return `badge-${variant}`;
   }
 
