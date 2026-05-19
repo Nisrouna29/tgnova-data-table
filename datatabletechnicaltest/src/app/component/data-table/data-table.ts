@@ -175,4 +175,4 @@ export class DataTable<T extends Record<string, unknown>> {
 
 }
 export type DatePipeInput = string | number | Date;
-type PageItem = number | 'ELLIPSIS';
+export type PageItem = number | 'ELLIPSIS';
