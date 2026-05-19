@@ -74,8 +74,7 @@ usersResource = resource({
     const result = await firstValueFrom(
       this.usersService.fetchUsers$(params.page, params.size, params.search)
     );
-
-    // Update signal, triggers computed automatically
+    
     this.hasLoadedData.set(true);
 
     return result;
