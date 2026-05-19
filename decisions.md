@@ -14,7 +14,7 @@ This document outlines the architectural choices, performance considerations, an
 ## 2. Design Token System & SCSS Structure
 * **The Architectural Need:** When building an abstract component meant to handle varying contextual data and columns, writing hardcoded CSS rules creates messy, unmaintainable stylesheets. 
 * **The Token Solution:** To ensure clean, professional layout management, a comprehensive **Design Token System** was established using native CSS Custom Properties and organized SCSS variables.
-* **The Impact:** Centralizing layout attributes (like paddings, rounded borders, badge colors, and font-families) into unified tokens decoupled structural themes from the table component logic. This structural discipline made the SCSS architecture exceptionally clean, modular, and easy to maintain or scale with new theme targets.
+* **The Impact:** Centralizing layout attributes colors into unified tokens decoupled structural themes from the table component logic. This structural discipline made the SCSS architecture exceptionally clean, modular, and easy to maintain or scale with new theme targets.
 
 ## 3. Production Optimization & Data Caching
 * **Network Management:** To guarantee smooth transitions and low latency in a live production environment, integrating actual remote paginated API queries will be accompanied by an intelligent caching layer.
