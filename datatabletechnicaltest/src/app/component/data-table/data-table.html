@@ -31,8 +31,7 @@
                                 </path>
                             </svg>
                         </div>
-                        <input type="text" id="search-input" placeholder="Search..."
-                            (input)="onSearchInput($event)" />
+                        <input type="text" id="search-input" placeholder="Search..." (input)="onSearchInput($event)" />
                     </div>
                 </div>
             </div>
@@ -115,12 +114,19 @@
             <div id="pagination-container">
                 <div class="flex-col">
                     <div class="flex gap-2 items-center">
-                        <div class="text-sm text-center">
+                        <div class="text-sm text-center min-h-[20px]">
+                            <!-- Check if loading -->
+                            @if (loading()) {
+                            <span class="text-gray-400 animate-pulse">Loading results...</span>
+                            } @else {
                             Showing <span class="font-medium">{{ startRange() }}</span>
-                            to <span class="font-medium">{{ endRange()}}</span>
+                            to <span class="font-medium">{{ endRange() }}</span>
                             of <span class="font-medium">{{ totalItems() }}</span> results
+                            }
                         </div>
-                        <select id="itemsPerPage" (change)="onPageSizeChange($event)">
+
+                        <!-- Disable dropdown while loading -->
+                        <select id="itemsPerPage" (change)="onPageSizeChange($event)" [disabled]="loading()">
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
@@ -128,7 +134,8 @@
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <button (click)="pageChange.emit(currentPage() - 1)" [disabled]="currentPage() === 1">
+                        <!-- Disable Prev Button if loading OR on first page -->
+                        <button (click)="onPageClick(currentPage() - 1)" [disabled]="loading() || currentPage() === 1">
                             <svg viewBox="0 0 320 512">
                                 <path fill="currentColor"
                                     d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z">
@@ -137,23 +144,27 @@
                             <span class="hidden">Previous</span>
                         </button>
 
-                        <div class="flex gap-1">
+                        <!-- Disable middle page numbers while loading -->
+                        <div class="flex gap-1" [class.opacity-50]="loading()" [class.pointer-events-none]="loading()">
                             @for (page of pagesArray(); track $index) {
                             @if (page === 'ELLIPSIS') {
-                            <span class="text-sm text-subtle">...</span>
+                            <span class="text-sm text-subtle pt-1">...</span>
                             } @else {
-                            <button [class.bg-blue-600]="page === currentPage()" (click)="onPageClick(page)">
+                            <button [class.bg-blue-600]="page === currentPage()" (click)="onPageClick(page)"
+                                [disabled]="loading()">
                                 {{ page }}
                             </button>
-                            }}
+                            }
+                            }
                         </div>
 
-                        <button (click)="pageChange.emit(currentPage() + 1)"
-                            [disabled]="currentPage() === maxPage()">
+                        <!-- Disable Next Button if loading OR on last page -->
+                        <button (click)="onPageClick(currentPage() + 1)"
+                            [disabled]="loading() || currentPage() === maxPage()">
                             <span class="hidden">Next</span>
                             <svg viewBox="0 0 320 512">
                                 <path fill="currentColor"
-                                    d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z">
+                                    d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5-45.3 0l192 192z">
                                 </path>
                             </svg>
                         </button>

@@ -29,11 +29,20 @@ export class DataTable<T extends Record<string, unknown>> {
 
   sortKey = signal<string | null>(null);
   sortDir = signal<'asc' | 'desc'>('asc');
+  maxPage = signal<number>(1);
 
-  maxPage = computed(() => {
-    const size = Number(this.pageSize());
-    return Math.max(1, Math.ceil(this.totalItems() / size));
-  });
+  constructor() {
+    effect(() => {
+      if (this.loading()) return;
+      const size = Number(this.pageSize());
+      const total = this.totalItems();
+      this.maxPage.set(Math.max(1, Math.ceil(total / size)));
+      if (this.currentPage() > this.maxPage()) {
+        this.currentPage.set(this.maxPage());
+        this.pageChange.emit(this.maxPage());
+      }
+    });
+  }
 
   // for better rendering if we have big data we show max 5 pages numbers and use ellipsis to indicate more pages
   pagesArray = computed<PageItem[]>(() => {
@@ -132,10 +141,6 @@ export class DataTable<T extends Record<string, unknown>> {
     const selectElement = event.target as HTMLSelectElement;
     const newSize = parseInt(selectElement.value, 10);
     this.pageSize.set(newSize);
-    if (this.currentPage() > this.maxPage()) {
-      this.currentPage.set(this.maxPage());
-      this.pageChange.emit(this.maxPage());
-    }
     this.resetSorting()
   }
 
