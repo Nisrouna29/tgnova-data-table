@@ -1,0 +1,465 @@
+@use '../../../styles/_tokens' as t;
+
+// ==========================================================================
+// Base Component Container Layout
+// ==========================================================================
+#main-container {
+  min-height: 100vh;
+  background-color: t.$color-bg-main;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 1rem;
+  box-sizing: border-box;
+
+  @media (min-width: 640px) {
+    padding: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 2rem;
+  }
+
+  @media (max-width: 640px) {
+    padding: 0.25rem;
+  }
+}
+
+#table-wrapper {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// ==========================================================================
+// Typography Top Heading Panel
+// ==========================================================================
+#header-section {
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: t.$color-text-main;
+    margin: 0 0 0.5rem 0;
+
+    @media (min-width: 1024px) {
+      font-size: 2.25rem;
+    }
+  }
+
+  p {
+    font-size: 1.125rem;
+    color: t.$color-text-muted;
+    margin: 0;
+  }
+}
+
+// ==========================================================================
+// Main Card Surface & Background Fetch States
+// ==========================================================================
+#table-card {
+  background-color: t.$color-bg-element;
+  border-radius: t.$size-radius-card;
+  border: 1px solid t.$color-border-main;
+  box-shadow: t.$shadow-lg;
+  overflow: hidden;
+  position: relative;
+
+  &.table-refreshing {
+    #table-container {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+  }
+}
+
+// Top background layout progress rule
+.top-loading-bar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 3rem;
+  height: 3rem;
+  border: 3px solid t.$color-primary-light;
+  border-top-color: t.$color-primary-main;
+  border-radius: 50%;
+  animation: spinner-rotate 0.8s linear infinite;
+  z-index: 10;
+}
+
+@keyframes spinner-rotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+// ==========================================================================
+// Control Strip (Titles + Search Input)
+// ==========================================================================
+#table-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid t.$color-border-main;
+
+  .flex {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    @media (min-width: 640px) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: t.$color-text-main;
+    margin: 0;
+  }
+
+  p {
+    font-size: 0.875rem;
+    color: t.$color-text-subtle;
+    margin: 0.25rem 0 0 0;
+  }
+}
+
+#search-container {
+  position: relative;
+  display: inline-block;
+
+  .absolute {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding-left: 0.75rem;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    color: t.$color-text-subtle;
+
+    svg {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+}
+
+#search-input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border: 1px solid t.$color-border-interactive;
+  border-radius: t.$size-radius-input;
+  font-size: 0.875rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+
+  @media (min-width: 640px) {
+    width: 20rem;
+  }
+
+  &:focus {
+    border-color: t.$color-primary-main;
+    box-shadow: t.$shadow-focus;
+  }
+}
+
+// ==========================================================================
+// Data Core Table Grid Element Layout
+// ==========================================================================
+#table-container {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 600px;
+  width: 100%;
+  transition: opacity 0.2s ease-in-out;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+#table-head {
+  background-color: t.$color-bg-main;
+  border-bottom: 1px solid t.$color-border-main;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+
+  th {
+    padding: 1rem 1.5rem;
+    font-size: 0.875rem;
+    background-color: t.$color-bg-main;
+  }
+}
+
+.sort-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  background: none;
+  border: none;
+  padding: 0;
+
+  font-size: 0.875rem;
+  font-weight: 600;
+
+  color: t.$color-text-muted;
+
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  svg {
+    width: 0.75rem;
+    height: 0.75rem;
+    color: t.$color-text-subtle;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  &:hover {
+    color: t.$color-text-main;
+  }
+
+  &.active {
+    color: t.$color-text-main;
+
+    svg {
+      color: t.$color-primary-main;
+    }
+  }
+
+  &.active.asc svg {
+    transform: rotate(180deg);
+  }
+
+  &.active.desc svg {
+    transform: rotate(0deg);
+  }
+}
+
+#table-body {
+  tr {
+    border-bottom: 1px solid t.$color-border-main;
+    transition: background-color 0.15s ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: t.$color-bg-main;
+    }
+  }
+
+  td {
+    padding: 1rem 1.5rem;
+    font-size: 0.875rem;
+    color: t.$color-text-muted;
+    vertical-align: middle;
+    white-space: nowrap;
+
+    &.text-gray-900 {
+      color: t.$color-text-main;
+    }
+  }
+}
+
+.flex.items-center.gap-3 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  .font-medium {
+    font-weight: 500;
+    color: t.$color-text-main;
+  }
+
+  .text-sm {
+    font-size: 0.875rem;
+    color: t.$color-text-subtle;
+  }
+}
+
+// ==========================================================================
+// Micro-Interaction Token Badges
+// ==========================================================================
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.625rem;
+  border-radius: t.$size-radius-badge;
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  &.badge-success {
+    background-color: t.$color-badge-success-bg;
+    color: t.$color-badge-success-text;
+  }
+
+  &.badge-warning {
+    background-color: t.$color-badge-warning-bg;
+    color: t.$color-badge-warning-text;
+  }
+
+  &.badge-danger {
+    background-color: t.$color-badge-danger-bg;
+    color: t.$color-badge-danger-text;
+  }
+}
+
+// ==========================================================================
+// Footnote Pagination Controls Layout
+// ==========================================================================
+#pagination-container {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid t.$color-border-main;
+  background-color: t.$color-bg-main;
+
+  .flex-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    @media (min-width: 640px) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .text-sm {
+    font-size: 0.875rem;
+    color: t.$color-text-muted;
+
+    .font-medium {
+      font-weight: 500;
+      color: t.$color-text-main;
+    }
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .flex.items-center.gap-2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .flex.gap-1 {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    border: 1px solid t.$color-border-interactive;
+    background-color: t.$color-bg-element;
+    color: t.$color-text-muted;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover:not(:disabled) {
+      background-color: t.$color-bg-main;
+      color: t.$color-text-main;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &.bg-blue-600 {
+      background-color: t.$color-primary-main;
+      border-color: t.$color-primary-main;
+      color: #ffffff;
+
+      &:hover {
+        background-color: t.$color-primary-hover;
+      }
+    }
+
+    svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+  }
+
+  span.px-3 {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    color: t.$color-text-subtle;
+  }
+
+  #itemsPerPage {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background: t.$gradient-select-bg;
+    border: 1px solid t.$color-border-interactive;
+    border-radius: t.$size-radius-input;
+
+    padding: 8px 36px 8px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: t.$color-text-main;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    box-shadow: t.$shadow-sm;
+
+    /* custom arrow */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%236b7280' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 7.5l4.5 4.5 4.5-4.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 14px;
+
+    &:hover {
+      border-color: t.$color-border-interactive;
+      box-shadow: t.$shadow-md;
+      transform: translateY(-1px);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: t.$color-primary-main;
+      box-shadow: t.$shadow-focus;
+    }
+
+    option {
+      font-size: 13px;
+    }
+  }
+
+  .hidden {
+    display: none;
+
+    @media (min-width: 640px) {
+      display: inline;
+    }
+  }
+
+  @media (max-width: 640px) {
+    padding: 0.5rem 0.75rem;
+  }
+}

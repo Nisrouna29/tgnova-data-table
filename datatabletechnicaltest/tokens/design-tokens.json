@@ -1,0 +1,40 @@
+{
+  "color": {
+    "primary": {
+      "main": { "value": "#2563eb" },
+      "hover": { "value": "#1d4ed8" },
+      "light": { "value": "rgba(37, 99, 235, 0.2)" }
+    },
+    "text": {
+      "main": { "value": "#111827" },
+      "muted": { "value": "#4b5563" },
+      "subtle": { "value": "#9ca3af" }
+    },
+    "bg": {
+      "main": { "value": "#f9fafb" },
+      "card": { "value": "#ffffff" }
+    },
+    "border": {
+      "main": { "value": "#f3f4f6" },
+      "input": { "value": "#e5e7eb" }
+    },
+    "badge": {
+      "success": { "bg": { "value": "#dcfce7" }, "text": { "value": "#166534" } },
+      "warning": { "bg": { "value": "#fef9c3" }, "text": { "value": "#854d0e" } },
+      "danger": { "bg": { "value": "#fee2e2" }, "text": { "value": "#991b1b" } }
+    }
+  },
+  "size": {
+    "radius": {
+      "card": { "value": "1rem" },
+      "input": { "value": "0.75rem" },
+      "badge": { "value": "9999px" }
+    }
+  },
+  "shadow": {
+    "lg": { "value": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)" }
+  },
+  "gradient": {
+    "select-bg": { "value": "linear-gradient(145deg, #ffffff, #f3f4f6)" }
+  }
+}

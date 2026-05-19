@@ -1,0 +1,12 @@
+    <data-table
+      [columns]="columns"
+      [data]="users()"
+      [loading]="isLoading()"
+      [totalItems]="totalItems()"
+      [currentPage]="currentPage()"
+      [pageSize]="pageSize()"
+      [showEmptyMessage]="showNoDataMessage()"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (searchChange)="onSearch($event)"
+      (pageChange)="onPageClick($event)">
+    </data-table>

@@ -1,0 +1,167 @@
+<div id="main-container">
+    <div id="table-wrapper">
+
+        <!-- Top Heading Panel -->
+        <div id="header-section">
+            <h1>Data Management</h1>
+            <p>Manage and organize your data efficiently</p>
+        </div>
+
+        <!-- Main Card Surface -->
+        <div id="table-card" [class.table-refreshing]="loading()">
+
+            <!-- Top Background Loading Indicator Bar -->
+            @if (loading()) {
+            <div class="top-loading-bar"></div>
+            }
+
+            <!-- Control Strip (Title & Search) -->
+            <div id="table-header">
+                <div class="flex">
+                    <div>
+                        <h2>User Directory</h2>
+                        <p>A comprehensive list of all registered users</p>
+                    </div>
+
+                    <div id="search-container">
+                        <div class="absolute">
+                            <svg aria-hidden="true" focusable="false" viewBox="0 0 512 512">
+                                <path fill="currentColor"
+                                    d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z">
+                                </path>
+                            </svg>
+                        </div>
+                        <input type="text" id="search-input" placeholder="Search users..."
+                            (input)="onSearchInput($event)" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Core Table Grid -->
+            <div id="table-container">
+                <table>
+                    <thead id="table-head">
+                        <tr>
+                            @for (col of columns(); track col.key) {
+                            <th>
+                                <button class="sort-btn" (click)="toggleSort(col.key)"
+                                    [class.active]="sortKey() === col.key"
+                                    [class.asc]="sortKey() === col.key && sortDir() === 'asc'"
+                                    [class.desc]="sortKey() === col.key && sortDir() === 'desc'">
+
+                                    <span>{{ col.label }}</span>
+
+                                    <svg viewBox="0 0 320 512">
+                                        <path fill="currentColor"
+                                            d="M137.4 41.4c12.5-12.5 32.8-12.5 45.3 0l128 128c9.2 9.2 11.9 22.9 6.9 34.9s-16.6 19.8-29.6 19.8H32c-12.9 0-24.6-7.8-29.6-19.8s-2.2-25.7 6.9-34.9l128-128zm0 429.3l-128-128c-9.2-9.2-11.9-22.9-6.9-34.9s16.6-19.8 29.6-19.8H288c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9l-128 128c-12.5 12.5-32.8 12.5-45.3 0z">
+                                        </path>
+                                    </svg>
+
+                                </button>
+                            </th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        @for (row of data(); track row['id']) {
+                        <tr>
+
+                            @for (col of columns(); track col.key) {
+                            <td>
+
+                                @switch (col.type) {
+
+                                @case ('text') {
+                                {{ row[col.key] }}
+                                }
+
+                                @case ('date') {
+                                @if (isDate(row[col.key])) {
+                                {{ asDateInput(row[col.key]) | date:'MMM d, y'}}
+                                } @else {
+                                Invalid Date
+                                }
+
+                                }
+
+                                @case ('badge') {
+                                <span class="badge" [class]="getBadgeClass(col, row[col.key])">
+                                    {{ row[col.key] }}
+                                </span>
+                                }
+
+                                }
+
+                            </td>
+                            }
+
+                        </tr>
+                        } @empty {
+                        <tr>
+                            <td colspan="4" style="text-align: center; padding: 2rem;">
+                                @if (showEmptyMessage()) {
+                                No users found.
+                                } @else {
+                                <!-- Optional: Leave empty or show a placeholder like "Loading records..." -->
+                                Loading users...
+                                }
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Footnote Pagination Controls Layout -->
+            <div id="pagination-container">
+                <div class="flex-col">
+                    <div class="flex gap-2 items-center">
+                        <div class="text-sm text-center">
+                            Showing <span class="font-medium">{{ startRange() }}</span>
+                            to <span class="font-medium">{{ endRange()}}</span>
+                            of <span class="font-medium">{{ totalItems() }}</span> results
+                        </div>
+                        <select id="itemsPerPage" (change)="onPageSizeChange($event)">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <button (click)="pageChange.emit(currentPage() - 1)" [disabled]="currentPage() === 1">
+                            <svg viewBox="0 0 320 512">
+                                <path fill="currentColor"
+                                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z">
+                                </path>
+                            </svg>
+                            <span class="hidden">Previous</span>
+                        </button>
+
+                        <div class="flex gap-1">
+                            @for (page of pagesArray(); track $index) {
+                            @if (page === 'ELLIPSIS') {
+                            <span class="text-sm text-subtle">...</span>
+                            } @else {
+                            <button [class.bg-blue-600]="page === currentPage()" (click)="onPageClick(page)">
+                                {{ page }}
+                            </button>
+                            }}
+                        </div>
+
+                        <button (click)="pageChange.emit(currentPage() + 1)"
+                            [disabled]="currentPage() === pagesArray().length">
+                            <span class="hidden">Next</span>
+                            <svg viewBox="0 0 320 512">
+                                <path fill="currentColor"
+                                    d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
