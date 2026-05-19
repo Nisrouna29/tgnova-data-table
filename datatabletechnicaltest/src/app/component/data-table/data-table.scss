@@ -370,6 +370,10 @@ table {
     gap: 0.25rem;
   }
 
+  .flex.gap-1.pointer-events-none {
+    pointer-events: none;
+  }
+
   button {
     display: inline-flex;
     align-items: center;
