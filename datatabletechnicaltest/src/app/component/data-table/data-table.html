@@ -150,7 +150,7 @@
                         </div>
 
                         <button (click)="pageChange.emit(currentPage() + 1)"
-                            [disabled]="currentPage() === pagesArray().length">
+                            [disabled]="currentPage() === maxPage()">
                             <span class="hidden">Next</span>
                             <svg viewBox="0 0 320 512">
                                 <path fill="currentColor"
