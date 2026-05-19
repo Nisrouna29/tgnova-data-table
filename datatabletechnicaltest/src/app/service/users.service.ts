@@ -66,4 +66,8 @@ export class UsersService {
       })
     );
   }
+  clearCache() {
+    this.cachedData = null;
+    this.pendingRequest$ = null;
+  }
 }

@@ -21,6 +21,8 @@ export class App {
   private hasLoadedData = signal(false);
   private subscription!: Subscription;
   constructor() {
+    // Optional : clear the cache on app start to ensure we always fetch fresh data when the app is reloaded. this problem i founded when i use ressource on chrome
+    this.usersService.clearCache();
     this.subscription = this.usersService.searchSubject.pipe(
       debounceTime(300),
       distinctUntilChanged()
@@ -60,26 +62,26 @@ export class App {
   currentPage = signal(1);
   searchTerm = signal('');
 
-usersResource = resource({
-  params: () => ({
-    page: this.currentPage(),
-    size: this.pageSize(),
-    search: this.searchTerm()
-  }),
+  usersResource = resource({
+    params: () => ({
+      page: this.currentPage(),
+      size: this.pageSize(),
+      search: this.searchTerm()
+    }),
 
-  loader: async ({ params }) => {
-    // Simulate network delay to show loading state
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    loader: async ({ params }) => {
+      // Simulate network delay to show loading state
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
-    const result = await firstValueFrom(
-      this.usersService.fetchUsers$(params.page, params.size, params.search)
-    );
-    
-    this.hasLoadedData.set(true);
+      const result = await firstValueFrom(
+        this.usersService.fetchUsers$(params.page, params.size, params.search)
+      );
 
-    return result;
-  }
-});
+      this.hasLoadedData.set(true);
+
+      return result;
+    }
+  });
 
   users = computed(() => {
     const freshData = this.usersResource.value()?.items;
