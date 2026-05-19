@@ -19,7 +19,7 @@ this.filter = null;
 }
 getFilteredUsers() {
 if (this.filter == null) return this.users; // we woud better use === strict equality for better results 
-return this.users.filter((u) => u.name == this.filter); // same here === we should use toLowerCase() and trim() on the data before filtering to achieve better results.
+return this.users.filter((u) => u.name == this.filter); // same here === we should use toLowerCase() and trim() on the data before filtering to achieve better results. // users is of type any it can produce an error accesing a param like that. we can use user?.name
 }
 async loadUsers() {
 const res = await fetch('/api/users');
