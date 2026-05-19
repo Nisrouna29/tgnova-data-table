@@ -63,6 +63,7 @@
   box-shadow: t.$shadow-lg;
   overflow: hidden;
   position: relative;
+  min-height: 350px;
 
   &.table-refreshing {
     #table-container {
@@ -73,7 +74,7 @@
 }
 
 // Top background layout progress rule
-.top-loading-bar {
+.top-loading-spinner {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -178,6 +179,7 @@
 #table-container {
   overflow-x: auto;
   overflow-y: auto;
+  min-height: 250px;
   max-height: 600px;
   width: 100%;
   transition: opacity 0.2s ease-in-out;
