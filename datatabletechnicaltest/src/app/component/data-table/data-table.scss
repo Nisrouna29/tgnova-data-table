@@ -405,8 +405,15 @@ table {
     }
 
     svg {
+      display: none;
       width: 0.75rem;
       height: 0.75rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    button svg {
+      display: inline-block;
     }
   }
 
