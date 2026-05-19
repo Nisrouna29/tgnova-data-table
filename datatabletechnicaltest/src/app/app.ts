@@ -5,6 +5,7 @@ import { debounceTime, distinctUntilChanged, firstValueFrom, Subscription } from
 import { BaseColumn } from './model/BaseColumn';
 import { BadgeColumn } from './model/BadgeColumn';
 import { User } from './model/user';
+import { PageItem } from './shared/ui.types';
 
 @Component({
   selector: 'app-root',
@@ -112,7 +113,7 @@ export class App {
   onPageClick(page: number) {
     this.currentPage.set(page);
   }
-  onPageSizeChange(newSize: number | 'ELLIPSIS') {
+  onPageSizeChange(newSize: PageItem) {
     if (typeof newSize === 'number') {
       this.pageSize.set(newSize);
     }

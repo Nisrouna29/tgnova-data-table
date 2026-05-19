@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, effect, input, model, out
 import { CommonModule } from '@angular/common';
 import { BadgeColumn } from '../../model/BadgeColumn';
 import { BaseColumn } from '../../model/BaseColumn';
+import { DatePipeInput, PageItem } from '../../shared/ui.types';
 
 @Component({
   selector: 'data-table',
@@ -174,5 +175,3 @@ export class DataTable<T extends Record<string, unknown>> {
   }
 
 }
-export type DatePipeInput = string | number | Date;
-export type PageItem = number | 'ELLIPSIS';
