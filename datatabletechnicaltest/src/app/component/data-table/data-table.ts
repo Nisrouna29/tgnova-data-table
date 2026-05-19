@@ -106,7 +106,7 @@ export class DataTable<T extends Record<string, unknown>> {
     }
     this.applySort();
   }
-  // we apply the sort on the client side after we receive the data, this is to avoid making multiple requests to the server when the user clicks on the same column multiple times. we can also implement server side sorting if needed.
+  // we apply the sort on the client side after we receive the data
   applySort() {
     const key = this.sortKey();
     const dir = this.sortDir();
