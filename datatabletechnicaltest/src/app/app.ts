@@ -18,7 +18,7 @@ export class App {
   private usersService = inject(UsersService);
   private cachedItems: User[] = [];
   private cachedTotal = 0;
-  private hasLoadedData = false;
+  private hasLoadedData = signal(false);
   private subscription!: Subscription;
   constructor() {
     this.subscription = this.usersService.searchSubject.pipe(
@@ -60,25 +60,27 @@ export class App {
   currentPage = signal(1);
   searchTerm = signal('');
 
-  usersResource = resource({
-    params: () => ({
-      page: this.currentPage(),
-      size: this.pageSize(),
-      search: this.searchTerm()
-    }),
+usersResource = resource({
+  params: () => ({
+    page: this.currentPage(),
+    size: this.pageSize(),
+    search: this.searchTerm()
+  }),
 
-    loader: async ({ params }) => {
-      //HARDCODED DELAY: Force the loader to wait for 1000ms (1 seconds) // to see how loading is working if we use backend apis
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      return firstValueFrom(
-        this.usersService.fetchUsers$(
-          params.page,
-          params.size,
-          params.search
-        )
-      );
-    }
-  });
+  loader: async ({ params }) => {
+    // Simulate network delay to show loading state
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    const result = await firstValueFrom(
+      this.usersService.fetchUsers$(params.page, params.size, params.search)
+    );
+
+    // Update signal, triggers computed automatically
+    this.hasLoadedData.set(true);
+
+    return result;
+  }
+});
 
   users = computed(() => {
     const freshData = this.usersResource.value()?.items;
@@ -100,7 +102,7 @@ export class App {
   });
 
   showNoDataMessage = computed(() => {
-    return this.hasLoadedData && !this.isLoading() && this.users().length === 0;
+    return this.hasLoadedData() && !this.isLoading() && this.users().length === 0;
   });
 
   isLoading = computed(() => this.usersResource.isLoading());
