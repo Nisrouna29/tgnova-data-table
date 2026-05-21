@@ -5,7 +5,7 @@ This document outlines the architectural choices, performance considerations, an
 ---
 
 ## 1. Generic Architecture & Modern Angular Integration
-* **The Challenge:** Designing a fully abstract data table capable of rendering arbitrary datasets and dynamic configurations asynchronously while maintaining strict type safety was a complex task.
+* **The Challenge:** Designing a fully generic data table capable of rendering arbitrary datasets and dynamic configurations asynchronously while maintaining strict type safety was a complex task.
 * **The Solution:** The core structure was built leveraging the cutting-edge features of modern Angular (including Angular 21 principles), focusing primarily on:
   * **Signals & Resources:** Used for fine-grained reactive state management instead of traditional lifecycle hooks.
   * **Zoneless Execution & OnPush Strategy:** Completely decoupling from `Zone.js` to eliminate global change detection cycles and significantly minimize runtime rendering overhead.
