@@ -1,6 +1,19 @@
 @use '../../../styles/_tokens' as t;
 
 // ==========================================================================
+// general styles
+// ==========================================================================
+.text-sm {
+  font-size: 0.875rem;
+  color: t.$color-text-subtle;
+}
+
+.font-medium {
+  font-weight: 500;
+  color: t.$color-text-main;
+}
+
+// ==========================================================================
 // Base Component Container Layout
 // ==========================================================================
 #main-container {
@@ -281,16 +294,6 @@ table {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-
-  .font-medium {
-    font-weight: 500;
-    color: t.$color-text-main;
-  }
-
-  .text-sm {
-    font-size: 0.875rem;
-    color: t.$color-text-subtle;
-  }
 }
 
 // ==========================================================================
@@ -341,12 +344,23 @@ table {
   }
 
   .text-sm {
-    font-size: 0.875rem;
-    color: t.$color-text-muted;
 
-    .font-medium {
-      font-weight: 500;
-      color: t.$color-text-main;
+    .text-loading-result.animate-pulse {
+      color: t.$color-text-subtle;
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
     }
   }
 
@@ -378,6 +392,7 @@ table {
   .flex.gap-1.pointer-events-none {
     pointer-events: none;
   }
+
 
   button {
     display: inline-flex;
