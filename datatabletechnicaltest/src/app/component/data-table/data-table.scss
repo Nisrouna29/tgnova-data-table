@@ -13,6 +13,15 @@
   color: t.$color-text-main;
 }
 
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+  gap: 1rem;
+}
+
 // ==========================================================================
 // Base Component Container Layout
 // ==========================================================================
@@ -118,10 +127,7 @@
   padding: 1.5rem;
   border-bottom: 1px solid t.$color-border-main;
 
-  .flex {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  .flex-col {
 
     @media (min-width: 640px) {
       flex-direction: row;
@@ -154,7 +160,6 @@
     bottom: 0;
     left: 0;
     padding-left: 0.75rem;
-    display: flex;
     align-items: center;
     pointer-events: none;
     color: t.$color-text-subtle;
@@ -219,7 +224,6 @@ table {
 }
 
 .sort-btn {
-  display: flex;
   align-items: center;
   gap: 0.5rem;
 
@@ -291,7 +295,6 @@ table {
 }
 
 .flex.items-center.gap-3 {
-  display: flex;
   align-items: center;
   gap: 0.75rem;
 }
@@ -332,9 +335,6 @@ table {
   background-color: t.$color-bg-main;
 
   .flex-col {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
 
     @media (min-width: 640px) {
       flex-direction: row;
@@ -373,14 +373,12 @@ table {
   }
 
   .flex.items-center.gap-2 {
-    display: flex;
     align-items: center;
     gap: 0.5rem;
     justify-content: center;
   }
 
   .flex.gap-1 {
-    display: flex;
     gap: 0.25rem;
 
   }
