@@ -21,8 +21,6 @@ export class App implements OnDestroy {
   private hasLoadedData = signal(false);
   private subscription!: Subscription;
   constructor() {
-    // Optional : clear the cache on app start to ensure we always fetch fresh data when the app is reloaded. this problem i founded when i use ressource on chrome
-    this.usersService.clearCache();
     this.subscription = this.usersService.searchSubject.pipe(
       debounceTime(300),
       distinctUntilChanged()
