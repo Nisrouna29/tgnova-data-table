@@ -34,7 +34,7 @@ export class DataTable<T extends Record<string, unknown>> {
   constructor() {
     effect(() => {
       if (this.loading()) return;
-      const size = Number(this.pageSize());
+      const size = this.pageSize();
       const total = this.totalItems();
       this.maxPage.set(Math.max(1, Math.ceil(total / size)));
       if (this.currentPage() > this.maxPage()) {
@@ -79,7 +79,7 @@ export class DataTable<T extends Record<string, unknown>> {
     const total = this.totalItems();
     if (total === 0) return 0;
 
-    const size = Number(this.pageSize());
+    const size = this.pageSize();
 
     const current = Math.min(this.currentPage(), Math.ceil(total / size));
 
@@ -90,7 +90,7 @@ export class DataTable<T extends Record<string, unknown>> {
     const total = this.totalItems();
     if (total === 0) return 0;
 
-    const size = Number(this.pageSize());
+    const size = this.pageSize();
 
     const current = Math.min(this.currentPage(), Math.ceil(total / size));
     const end = current * size;
@@ -98,7 +98,7 @@ export class DataTable<T extends Record<string, unknown>> {
     return Math.min(end, total);
   });
 
-  onPageClick(page: number | 'ELLIPSIS'): void {
+  onPageClick(page: PageItem): void {
     if (page !== 'ELLIPSIS') {
       this.pageChange.emit(page);
     }
