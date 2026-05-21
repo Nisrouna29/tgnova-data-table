@@ -24,7 +24,7 @@
                     </div>
 
                     <div id="search-container">
-                        <div class="flex absolute">
+                        <div class="flex items-center absolute">
                             <svg aria-hidden="true" focusable="false" viewBox="0 0 512 512">
                                 <path fill="currentColor"
                                     d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z">
@@ -43,7 +43,7 @@
                         <tr>
                             @for (col of columns(); track col.key) {
                             <th>
-                                <button class="flex sort-btn" (click)="toggleSort(col.key)"
+                                <button class="flex items-center gap-2 sort-btn" (click)="toggleSort(col.key)"
                                     [class.active]="sortKey() === col.key"
                                     [class.asc]="sortKey() === col.key && sortDir() === 'asc'"
                                     [class.desc]="sortKey() === col.key && sortDir() === 'desc'">
@@ -84,7 +84,7 @@
                                 }
 
                                 @case ('badge') {
-                                <span class="badge" [class]="getBadgeClass(col, row[col.key])">
+                                <span class="badge items-center" [class]="getBadgeClass(col, row[col.key])">
                                     {{ row[col.key] }}
                                 </span>
                                 }
@@ -113,7 +113,7 @@
             <!-- Footnote Pagination Controls Layout -->
             <div id="pagination-container">
                 <div class="flex flex-col">
-                    <div class="flex gap-2 items-center">
+                    <div class="flex gap-2 items-center justify-center">
                         <div class="text-sm text-center">
                             @if (loading()) {
                             <span class="text-loading-result animate-pulse">Loading results...</span>
@@ -131,7 +131,7 @@
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <button (click)="onPageClick(currentPage() - 1)" [disabled]="loading() || currentPage() === 1">
+                        <button class="align-center justify-center"(click)="onPageClick(currentPage() - 1)" [disabled]="loading() || currentPage() === 1">
                             <svg viewBox="0 0 320 512">
                                 <path fill="currentColor"
                                     d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z">
@@ -144,14 +144,14 @@
                             @if (page === 'ELLIPSIS') {
                             <span class="text-sm pt-1">...</span>
                             } @else {
-                            <button [class.bg-blue-600]="page === currentPage()" (click)="onPageClick(page)"
+                            <button class="align-center justify-center" [class.bg-blue-600]="page === currentPage()" (click)="onPageClick(page)"
                                 [disabled]="loading()">
                                 {{ page }}
                             </button>
                             }
                             }
                         </div>
-                        <button (click)="onPageClick(currentPage() + 1)"
+                        <button class="align-center justify-center" (click)="onPageClick(currentPage() + 1)"
                             [disabled]="loading() || currentPage() === maxPage()">
                             <span class="hidden">Next</span>
                             <svg viewBox="0 0 320 512">
