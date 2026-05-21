@@ -116,10 +116,9 @@ export class App implements OnDestroy {
   onPageClick(page: number) {
     this.currentPage.set(page);
   }
-  onPageSizeChange(newSize: PageItem) {
-    if (typeof newSize === 'number') {
+  onPageSizeChange(newSize: number) {
       this.pageSize.set(newSize);
-    }
+
   }
 
   ngOnDestroy() {

@@ -20,7 +20,7 @@ export class DataTable<T extends Record<string, unknown>> {
   loading = model<boolean>(false);
 
   currentPage = model<number>(1);
-  pageSize = model<PageItem>(10);
+  pageSize = model<number>(10);
 
   searchChange = output<string>();
   pageChange = output<number>();
