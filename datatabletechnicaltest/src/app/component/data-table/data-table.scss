@@ -385,11 +385,8 @@ table {
 
   }
 
-  .flex.gap-1.opacity-50 {
+  .flex.gap-1.opacity-50.pointer-events-none {
     opacity: 0.5;
-  }
-
-  .flex.gap-1.pointer-events-none {
     pointer-events: none;
   }
 
