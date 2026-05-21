@@ -5,7 +5,6 @@ import { debounceTime, distinctUntilChanged, firstValueFrom, Subscription } from
 import { BaseColumn } from './model/BaseColumn';
 import { BadgeColumn } from './model/BadgeColumn';
 import { User } from './model/user';
-import { PageItem } from './shared/ui.types';
 
 @Component({
   selector: 'app-root',
