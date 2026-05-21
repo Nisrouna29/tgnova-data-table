@@ -3,14 +3,37 @@
 // ==========================================================================
 // general styles
 // ==========================================================================
+
+.text-xs {
+  font-size: 0.75rem;
+}
+
 .text-sm {
   font-size: 0.875rem;
-  color: t.$color-text-subtle;
+}
+
+.text-lg {
+  font-size: 1.125rem;
 }
 
 .font-medium {
   font-weight: 500;
+}
+.font-semibold {
+  font-weight: 600;
+}
+.font-bold {
+  font-weight: 600;
+}
+.text-main {
   color: t.$color-text-main;
+}
+.text-subtle {
+  color: t.$color-text-subtle;
+}
+
+.text-muted {
+  color: t.$color-text-muted;
 }
 
 .flex {
@@ -83,8 +106,6 @@
 
   h1 {
     font-size: 1.875rem;
-    font-weight: 700;
-    color: t.$color-text-main;
     margin: 0 0 0.5rem 0;
 
     @media (min-width: 1024px) {
@@ -93,8 +114,6 @@
   }
 
   p {
-    font-size: 1.125rem;
-    color: t.$color-text-muted;
     margin: 0;
   }
 }
@@ -162,14 +181,10 @@
 
   h2 {
     font-size: 1.25rem;
-    font-weight: 600;
-    color: t.$color-text-main;
     margin: 0;
   }
 
   p {
-    font-size: 0.875rem;
-    color: t.$color-text-subtle;
     margin: 0.25rem 0 0 0;
   }
 }
@@ -199,7 +214,6 @@
   padding: 0.75rem 1rem 0.75rem 2.5rem;
   border: 1px solid t.$color-border-interactive;
   border-radius: t.$size-radius-input;
-  font-size: 0.875rem;
   outline: none;
   box-sizing: border-box;
   transition: all 0.2s ease-in-out;
@@ -241,7 +255,6 @@ table {
 
   th {
     padding: 1rem 1.5rem;
-    font-size: 0.875rem;
     background-color: t.$color-bg-main;
   }
 }
@@ -250,11 +263,6 @@ table {
   background: none;
   border: none;
   padding: 0;
-
-  font-size: 0.875rem;
-  font-weight: 600;
-
-  color: t.$color-text-muted;
 
   cursor: pointer;
   transition: all 0.15s ease;
@@ -303,14 +311,8 @@ table {
 
   td {
     padding: 1rem 1.5rem;
-    font-size: 0.875rem;
-    color: t.$color-text-muted;
     vertical-align: middle;
     white-space: nowrap;
-
-    &.text-gray-900 {
-      color: t.$color-text-main;
-    }
   }
 }
 
@@ -321,8 +323,6 @@ table {
   display: inline-flex;
   padding: 0.125rem 0.625rem;
   border-radius: t.$size-radius-badge;
-  font-size: 0.75rem;
-  font-weight: 500;
 
   &.badge-success {
     background-color: t.$color-badge-success-bg;
@@ -391,12 +391,9 @@ table {
   button {
     display: inline-flex;
     padding: 0.5rem 0.75rem;
-    font-size: 0.875rem;
-    font-weight: 500;
     border-radius: 0.5rem;
     border: 1px solid t.$color-border-interactive;
     background-color: t.$color-bg-element;
-    color: t.$color-text-muted;
     cursor: pointer;
     transition: all 0.2s;
 
@@ -433,29 +430,17 @@ table {
     }
   }
 
-  span.px-3 {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.875rem;
-    color: t.$color-text-subtle;
-  }
 
   #itemsPerPage {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-
     background: t.$gradient-select-bg;
     border: 1px solid t.$color-border-interactive;
     border-radius: t.$size-radius-input;
-
     padding: 8px 36px 8px 12px;
-    font-size: 13px;
-    font-weight: 500;
-    color: t.$color-text-main;
-
     cursor: pointer;
     transition: all 0.2s ease;
-
     box-shadow: t.$shadow-sm;
 
     /* custom arrow */

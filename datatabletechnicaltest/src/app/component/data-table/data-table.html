@@ -2,9 +2,9 @@
     <div id="table-wrapper">
 
         <!-- Top Heading Panel -->
-        <div id="header-section">
+        <div id="header-section text-main font-bold">
             <h1>Data Management</h1>
-            <p>Manage and organize your data efficiently</p>
+            <p class="text-lg text-muted">Manage and organize your data efficiently</p>
         </div>
 
         <!-- Main Card Surface -->
@@ -19,8 +19,8 @@
             <div id="table-header">
                 <div class="flex flex-col">
                     <div>
-                        <h2>User Directory</h2>
-                        <p>A comprehensive list of all registered users</p>
+                        <h2 class="text-main font-semibold">User Directory</h2>
+                        <p class="text-sm text-subtle">A comprehensive list of all registered users</p>
                     </div>
 
                     <div id="search-container">
@@ -31,7 +31,7 @@
                                 </path>
                             </svg>
                         </div>
-                        <input type="text" id="search-input" placeholder="Search..." (input)="onSearchInput($event)" />
+                        <input type="text" id="search-input" class="text-sm" placeholder="Search..." (input)="onSearchInput($event)" />
                     </div>
                 </div>
             </div>
@@ -42,8 +42,8 @@
                     <thead id="table-head">
                         <tr>
                             @for (col of columns(); track col.key) {
-                            <th>
-                                <button class="flex items-center gap-2 sort-btn" (click)="toggleSort(col.key)"
+                            <th class="text-sm">
+                                <button class="flex items-center gap-2 text-sm font-semibold text-muted sort-btn" (click)="toggleSort(col.key)"
                                     [class.active]="sortKey() === col.key"
                                     [class.asc]="sortKey() === col.key && sortDir() === 'asc'"
                                     [class.desc]="sortKey() === col.key && sortDir() === 'desc'">
@@ -66,7 +66,7 @@
                         <tr>
 
                             @for (col of columns(); track col.key) {
-                            <td>
+                            <td class="text-sm text-muted">
 
                                 @switch (col.type) {
 
@@ -84,7 +84,7 @@
                                 }
 
                                 @case ('badge') {
-                                <span class="badge items-center" [class]="getBadgeClass(col, row[col.key])">
+                                <span class="badge items-center text-xs font-medium" [class]="getBadgeClass(col, row[col.key])">
                                     {{ row[col.key] }}
                                 </span>
                                 }
@@ -97,7 +97,7 @@
                         </tr>
                         } @empty {
                         <tr>
-                            <td colspan="4" style="text-align: center; padding: 2rem;">
+                            <td class="text-sm text-muted" colspan="4" style="text-align: center; padding: 2rem;">
                                 @if (showEmptyMessage()) {
                                 No users found.
                                 } @else {
@@ -114,16 +114,16 @@
             <div id="pagination-container">
                 <div class="flex flex-col">
                     <div class="flex gap-2 items-center justify-center">
-                        <div class="text-sm text-center">
+                        <div class="text-sm text-subtle text-center">
                             @if (loading()) {
                             <span class="text-loading-result animate-pulse">Loading results...</span>
                             } @else {
-                            Showing <span class="font-medium">{{ startRange() }}</span>
-                            to <span class="font-medium">{{ endRange() }}</span>
-                            of <span class="font-medium">{{ totalItems() }}</span> results
+                            Showing <span class="font-medium text-main">{{ startRange() }}</span>
+                            to <span class="font-medium text-main">{{ endRange() }}</span>
+                            of <span class="font-medium text-main">{{ totalItems() }}</span> results
                             }
                         </div>
-                        <select id="itemsPerPage" (change)="onPageSizeChange($event)" [disabled]="loading()">
+                        <select id="itemsPerPage" class="text-main font-medium" (change)="onPageSizeChange($event)" [disabled]="loading()">
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
@@ -131,7 +131,7 @@
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <button class="align-center justify-center"(click)="onPageClick(currentPage() - 1)" [disabled]="loading() || currentPage() === 1">
+                        <button class="align-center justify-center text-sm font-medium text-muted"(click)="onPageClick(currentPage() - 1)" [disabled]="loading() || currentPage() === 1">
                             <svg viewBox="0 0 320 512">
                                 <path fill="currentColor"
                                     d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z">
@@ -142,16 +142,16 @@
                         <div class="flex gap-1" [class.opacity-50]="loading()" [class.pointer-events-none]="loading()">
                             @for (page of pagesArray(); track $index) {
                             @if (page === 'ELLIPSIS') {
-                            <span class="text-sm pt-1">...</span>
+                            <span class="text-sm text-subtle pt-1">...</span>
                             } @else {
-                            <button class="align-center justify-center" [class.bg-blue-600]="page === currentPage()" (click)="onPageClick(page)"
+                            <button class="align-center justify-center text-sm font-medium text-muted" [class.bg-blue-600]="page === currentPage()" (click)="onPageClick(page)"
                                 [disabled]="loading()">
                                 {{ page }}
                             </button>
                             }
                             }
                         </div>
-                        <button class="align-center justify-center" (click)="onPageClick(currentPage() + 1)"
+                        <button class="align-center justify-center text-sm font-medium text-muted" (click)="onPageClick(currentPage() + 1)"
                             [disabled]="loading() || currentPage() === maxPage()">
                             <span class="hidden">Next</span>
                             <svg viewBox="0 0 320 512">
