@@ -115,7 +115,6 @@
                 <div class="flex-col">
                     <div class="flex gap-2 items-center">
                         <div class="text-sm text-center min-h-[20px]">
-                            <!-- Check if loading -->
                             @if (loading()) {
                             <span class="text-gray-400 animate-pulse">Loading results...</span>
                             } @else {
@@ -124,8 +123,6 @@
                             of <span class="font-medium">{{ totalItems() }}</span> results
                             }
                         </div>
-
-                        <!-- Disable dropdown while loading -->
                         <select id="itemsPerPage" (change)="onPageSizeChange($event)" [disabled]="loading()">
                             <option value="10">10</option>
                             <option value="25">25</option>

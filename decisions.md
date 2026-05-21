@@ -1,10 +1,10 @@
-# Engineering & Design Decisions: Abstract Data Table
+# Engineering & Design Decisions: Generic Data Table
 
-This document outlines the architectural choices, performance considerations, and technical decisions made during the development of the highly scalable, abstract Data Table component.
+This document outlines the architectural choices, performance considerations, and technical decisions made during the development of the highly scalable, generic Data Table component.
 
 ---
 
-## 1. Abstract Architecture & Modern Angular Integration
+## 1. Generic Architecture & Modern Angular Integration
 * **The Challenge:** Designing a fully abstract data table capable of rendering arbitrary datasets and dynamic configurations asynchronously while maintaining strict type safety was a complex task.
 * **The Solution:** The core structure was built leveraging the cutting-edge features of modern Angular (including Angular 21 principles), focusing primarily on:
   * **Signals & Resources:** Used for fine-grained reactive state management instead of traditional lifecycle hooks.
@@ -12,7 +12,7 @@ This document outlines the architectural choices, performance considerations, an
   * **Performance & Presentation:** Integrating a debounced search mechanism to optimize stream evaluations, combined with full Server-Side Rendering (SSR) and Hydration support. The visual component layer relies on pure, highly responsive CSS to display advanced layouts fluidly without framework UI dependencies.
 
 ## 2. Design Token System & SCSS Structure
-* **The Architectural Need:** When building an abstract component meant to handle varying contextual data and columns, writing hardcoded CSS rules creates messy, unmaintainable stylesheets. 
+* **The Architectural Need:** When building a generic component meant to handle varying contextual data and columns, writing hardcoded CSS rules creates messy, unmaintainable stylesheets. 
 * **The Token Solution:** To ensure clean, professional layout management, a comprehensive **Design Token System** was established using native CSS Custom Properties and organized SCSS variables.
 * **The Impact:** Centralizing layout attributes colors into unified tokens decoupled structural themes from the table component logic. This structural discipline made the SCSS architecture exceptionally clean, modular, and easy to maintain or scale with new theme targets.
 
