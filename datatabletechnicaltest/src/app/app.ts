@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, resource, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, resource, signal } from '@angular/core';
 import { DataTable } from './component/data-table/data-table';
 import { UsersService } from './service/users.service';
 import { debounceTime, distinctUntilChanged, firstValueFrom, Subscription } from 'rxjs';
@@ -14,7 +14,7 @@ import { PageItem } from './shared/ui.types';
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class App {
+export class App implements OnDestroy {
   private usersService = inject(UsersService);
   private cachedItems: User[] = [];
   private cachedTotal = 0;
