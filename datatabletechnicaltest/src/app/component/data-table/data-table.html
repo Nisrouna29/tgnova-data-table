@@ -114,7 +114,7 @@
             <div id="pagination-container">
                 <div class="flex-col">
                     <div class="flex gap-2 items-center">
-                        <div class="text-sm text-center min-h-[20px]">
+                        <div class="text-sm text-center">
                             @if (loading()) {
                             <span class="text-loading-result animate-pulse">Loading results...</span>
                             } @else {
@@ -142,7 +142,7 @@
                         <div class="flex gap-1" [class.opacity-50]="loading()" [class.pointer-events-none]="loading()">
                             @for (page of pagesArray(); track $index) {
                             @if (page === 'ELLIPSIS') {
-                            <span class="text-sm text-subtle pt-1">...</span>
+                            <span class="text-sm pt-1">...</span>
                             } @else {
                             <button [class.bg-blue-600]="page === currentPage()" (click)="onPageClick(page)"
                                 [disabled]="loading()">
