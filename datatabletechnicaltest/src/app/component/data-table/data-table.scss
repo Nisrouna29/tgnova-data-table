@@ -21,21 +21,29 @@
   flex-direction: column;
   gap: 1rem;
 }
+
 .items-center {
   align-items: center;
 }
 
 .justify-center {
   justify-content: center;
-} 
+}
+
 .gap-1 {
   gap: 0.25rem;
 }
-.gap-2{
+
+.gap-2 {
   gap: 0.5rem;
 }
-.gap-3{
+
+.gap-3 {
   gap: 0.75rem;
+}
+
+.text-center {
+  text-align: center;
 }
 
 // ==========================================================================
@@ -372,10 +380,6 @@ table {
 
   .text-sm.pt-1 {
     padding-top: 0.25rem;
-  }
-
-  .text-center {
-    text-align: center;
   }
 
   .flex.gap-1.opacity-50.pointer-events-none {
