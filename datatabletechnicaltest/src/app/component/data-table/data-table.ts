@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, input, model, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, input, model, output, signal, untracked } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BadgeColumn } from '../../model/BadgeColumn';
 import { BaseColumn } from '../../model/BaseColumn';
@@ -15,15 +15,16 @@ export class DataTable<T extends Record<string, unknown>> {
   columns = input<(BaseColumn | BadgeColumn)[]>([]);
 
   totalItems = input<number>(1);
-  
+
   loading = input<boolean>(false);
 
   showEmptyMessage = input<boolean>(false);
 
+  pageSize = model<number>(10);
+
   data = model<T[]>([]);
 
   currentPage = model<number>(1);
-  pageSize = model<number>(10);
 
   searchChange = output<string>();
 
@@ -102,7 +103,9 @@ export class DataTable<T extends Record<string, unknown>> {
     if (page !== 'ELLIPSIS') {
       this.currentPage.set(page);
     }
+    untracked(() => {
     this.resetSorting();
+  });
   }
 
 
@@ -141,7 +144,9 @@ export class DataTable<T extends Record<string, unknown>> {
     const selectElement = event.target as HTMLSelectElement;
     const newSize = parseInt(selectElement.value, 10);
     this.pageSize.set(newSize);
-    this.resetSorting()
+    untracked(() => {   
+    this.resetSorting();
+    });
   }
 
   onSearchInput(event: Event) {
