@@ -18,14 +18,14 @@ export class DataTable<T extends Record<string, unknown>> {
   
   loading = input<boolean>(false);
 
+  showEmptyMessage = input<boolean>(false);
+
   data = model<T[]>([]);
 
   currentPage = model<number>(1);
   pageSize = model<number>(10);
 
   searchChange = output<string>();
-
-  showEmptyMessage = input<boolean>(false);
 
   sortKey = signal<string | null>(null);
   sortDir = signal<'asc' | 'desc'>('asc');
