@@ -82,9 +82,7 @@ export class DataTable<T extends Record<string, unknown>> {
 
     const size = this.pageSize();
 
-    const current = Math.min(this.currentPage(), Math.ceil(total / size));
-
-    return (current - 1) * size + 1;
+    return (this.currentPage() - 1) * size + 1;
   });
 
   endRange = computed(() => {
@@ -92,9 +90,7 @@ export class DataTable<T extends Record<string, unknown>> {
     if (total === 0) return 0;
 
     const size = this.pageSize();
-
-    const current = Math.min(this.currentPage(), Math.ceil(total / size));
-    const end = current * size;
+    const end = this.currentPage() * size;
 
     return Math.min(end, total);
   });
