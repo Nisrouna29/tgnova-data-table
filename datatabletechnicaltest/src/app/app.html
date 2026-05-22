@@ -4,9 +4,8 @@
       [loading]="isLoading()"
       [totalItems]="totalItems()"
       [currentPage]="currentPage()"
-      [pageSize]="pageSize()"
+      [(pageSize)]="pageSize"
       [showEmptyMessage]="showNoDataMessage()"
-      (pageSizeChange)="onPageSizeChange($event)"
       (searchChange)="onSearch($event)"
       (pageChange)="onPageClick($event)">
     </data-table>

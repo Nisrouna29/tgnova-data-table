@@ -15,9 +15,10 @@ export class DataTable<T extends Record<string, unknown>> {
   columns = input<(BaseColumn | BadgeColumn)[]>([]);
 
   totalItems = input<number>(1);
+  
+  loading = input<boolean>(false);
 
   data = model<T[]>([]);
-  loading = model<boolean>(false);
 
   currentPage = model<number>(1);
   pageSize = model<number>(10);
@@ -49,6 +50,7 @@ export class DataTable<T extends Record<string, unknown>> {
     const max = this.maxPage();
     const current = this.currentPage();
     const result: PageItem[] = [];
+
 
     if (max <= 5) {
       for (let i = 1; i <= max; i++) result.push(i);
