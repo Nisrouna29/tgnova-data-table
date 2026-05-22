@@ -139,7 +139,7 @@
                             </svg>
                             <span class="hidden">Previous</span>
                         </button>
-                        <div class="flex gap-1" [class.opacity-50]="loading()" [class.pointer-events-none]="loading()">
+                        <div class="flex gap-1" [class.opacity-50-pointer-events-none]="loading()">
                             @for (page of pagesArray(); track $index) {
                             @if (page === 'ELLIPSIS') {
                             <span class="text-sm text-subtle pt-1">...</span>
