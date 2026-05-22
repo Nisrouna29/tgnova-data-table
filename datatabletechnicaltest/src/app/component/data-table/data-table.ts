@@ -24,7 +24,6 @@ export class DataTable<T extends Record<string, unknown>> {
   pageSize = model<number>(10);
 
   searchChange = output<string>();
-  pageChange = output<number>();
 
   showEmptyMessage = input<boolean>(false);
 
@@ -40,7 +39,6 @@ export class DataTable<T extends Record<string, unknown>> {
       this.maxPage.set(Math.max(1, Math.ceil(total / size)));
       if (this.currentPage() > this.maxPage()) {
         this.currentPage.set(this.maxPage());
-        this.pageChange.emit(this.maxPage());
       }
     });
   }
@@ -102,7 +100,7 @@ export class DataTable<T extends Record<string, unknown>> {
 
   onPageClick(page: PageItem): void {
     if (page !== 'ELLIPSIS') {
-      this.pageChange.emit(page);
+      this.currentPage.set(page);
     }
     this.resetSorting();
   }

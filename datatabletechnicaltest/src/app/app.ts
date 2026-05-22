@@ -110,10 +110,6 @@ export class App implements OnDestroy {
     this.usersService.searchSubject.next(value);
   }
 
-  onPageClick(page: number) {
-    this.currentPage.set(page);
-  }
-
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

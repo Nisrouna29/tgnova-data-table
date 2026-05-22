@@ -3,9 +3,8 @@
       [data]="users()"
       [loading]="isLoading()"
       [totalItems]="totalItems()"
-      [currentPage]="currentPage()"
-      [(pageSize)]="pageSize"
       [showEmptyMessage]="showNoDataMessage()"
-      (searchChange)="onSearch($event)"
-      (pageChange)="onPageClick($event)">
+      [(currentPage)]="currentPage"
+      [(pageSize)]="pageSize"
+      (searchChange)="onSearch($event)">
     </data-table>
